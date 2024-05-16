@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q&A Chatbot</title>
+</head>
+<body>
+    <h1>Q&A Chatbot</h1>
+    <form id="question-form">
+        <input type="text" id="user-input" placeholder="Ask a question...">
+        <input type="submit" value="Ask">
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('question-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/ask', {
+                method: 'POST',
+                body: formData
+            });
+            const text = await response.text();
+            document.getElementById('response').innerHTML = text;
+        };
+    </script>
+</body>
+</html>
